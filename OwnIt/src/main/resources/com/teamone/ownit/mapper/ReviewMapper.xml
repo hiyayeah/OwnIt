@@ -11,7 +11,7 @@
                         FROM style_like_list s
                         WHERE member_idx = #{member_idx}) a
           ON r.review_idx = a.review_idx
-          GROUP BY r.review_idx
+          <!-- GROUP BY r.review_idx -->
           <choose>
               <when test="keyword.equals('new')">
                 ORDER BY review_date DESC

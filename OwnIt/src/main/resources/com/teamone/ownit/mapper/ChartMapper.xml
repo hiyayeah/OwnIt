@@ -4,7 +4,7 @@
 
 	<!-- 판매 TOP5 제품 -->
 	<select id="selectProductSellTop5" resultType="com.teamone.ownit.vo.ChartVO">
-		SELECT p.product_name, os.order_sell_idx, COUNT(os.product_idx) AS cnt
+		SELECT p.product_name, COUNT(os.product_idx) AS cnt
 			FROM 
 				order_sell os left join product p 
 			ON 
@@ -12,15 +12,15 @@
 			WHERE 
 				order_sell_gb = '2'
 			GROUP BY 
-				product_name
+				p.product_name
 			ORDER BY 
-				cnt DESC, order_sell_idx
+				cnt DESC
 			LIMIT 5;	
 	</select>
 	
 	<!-- 판매 TOP5 제품 이미지 -->
 	<select id="selectProductSellTop5_image" resultType="com.teamone.ownit.vo.ChartVO">
-		SELECT i.image_real_file1, os.order_sell_idx, COUNT(os.product_idx) AS cnt
+		SELECT i.image_real_file1, COUNT(os.product_idx) AS cnt
 			FROM 
 				order_sell os left join image i 
 			ON 
@@ -28,41 +28,41 @@
 			WHERE 
 				order_sell_gb = '2'
 			GROUP BY 
-				image_real_file1
+				i.image_real_file1
 			ORDER BY 
-				cnt DESC, order_sell_idx
+				cnt DESC
 			LIMIT 5;
 	</select>
 
 	<!-- 구매 TOP5 제품 -->	
 	<select id="selectProductBuyTop5" resultType="com.teamone.ownit.vo.ChartVO">
-		SELECT p.product_name, ob.order_buy_idx, SUM(ob.order_buy_count) AS cnt
+		SELECT p.product_name, SUM(ob.order_buy_count) AS cnt
 			FROM 
 				order_buy ob left join product p 
 			ON 
 				ob.product_idx = p.product_idx
 			WHERE
-				order_buy_gb = '3' || order_buy_gb = '4'
+				order_buy_gb IN ('3', '4')
 			GROUP BY 
 				product_name
 			ORDER BY 
-				cnt DESC, order_buy_idx
+				cnt DESC
 			LIMIT 5;	
 	</select>
 	
 	<!-- 구매 TOP5 제품 이미지 -->
 	<select id="selectProductBuyTop5_image" resultType="com.teamone.ownit.vo.ChartVO">
-		SELECT i.image_real_file1, ob.order_buy_idx, SUM(ob.order_buy_count) AS cnt
+		SELECT i.image_real_file1, SUM(ob.order_buy_count) AS cnt
 			FROM 
 				order_buy ob left join image i 
 			ON 
 				ob.product_idx = i.product_idx
 			WHERE
-				order_buy_gb = '3' || order_buy_gb = '4'
+				order_buy_gb IN ('3', '4')
 			GROUP BY 
-				image_real_file1
+				i.image_real_file1
 			ORDER BY 
-				cnt DESC, order_buy_idx
+				cnt DESC
 			LIMIT 5;
 	</select>
 	
