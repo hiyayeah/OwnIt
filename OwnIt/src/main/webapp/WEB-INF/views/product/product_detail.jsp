@@ -1,14 +1,13 @@
 <%@page import="com.teamone.ownit.vo.Product_DetailPageInfoVO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
-      <!-- meta -->
-      <link rel="shortcut icon" href="">
+    <link rel="shortcut icon" href="">
     <link rel="stylesheet" href="resources/css/vendor.css" />
     <link rel="stylesheet" href="resources/css/style.css" />
     <script src="resources/js/jquery-3.6.1.js"></script>
@@ -163,49 +162,62 @@
 	    
 	    }
     </style>
-  </head>
+</head>
 <!-- kakao sdk 호출 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
-
 <script type="text/javascript">
-  var cbChecked = "${product.product_idx}:1:${product.product_buy_price}/";
-  // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-  Kakao.init('1782262d4bfba22efdc59a399005f94e');
+	var cbChecked = "${product.product_idx}:1:${product.product_buy_price}/";
+	// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('1782262d4bfba22efdc59a399005f94e');
 
-  // SDK 초기화 여부를 판단합니다.
-  console.log(Kakao.isInitialized());
-  function kakaoShare() {
-	  Kakao.Link.sendDefault({
-	      objectType: 'feed',
-	      content: {
-	        title: '${product.product_brand}',
-	        description: '${product.product_name}',
-	        imageUrl:
-	          'http://itwillbs16.cafe24.com/resources/img/product/${product.image_real_file1}',
-	        link: {
-	          mobileWebUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}',
-	          webUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}',
-	        },
-	      },
-	      social: {
-	        likeCount: ${wishCount},  //관심품목 담은횟수
-	        commentCount: ${listCount},  //리뷰 개수
-	      },
-	      buttons: [
-	        {
-	          title: '웹으로 보기',  //첫 번째 버튼 
-	          link: {
-	            mobileWebUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}',  //버튼 클릭 시 이동 링크
-	            webUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}',
-	          },
-	        },
-	      ],
-	    })
-  }
-  
-  // 장바구니 추가
-  function cartVTN(idx){
+	// SDK 초기화 여부를 판단합니다.
+	console.log(Kakao.isInitialized());
+	function kakaoShare() {
+		Kakao.Link.sendDefault({
+			objectType: 'feed',
+			content: {
+				title: '${product.product_brand}',
+				description: '${product.product_name}',
+				imageUrl:
+					/* 로컬 ver. */	          	
+					'http://localhost:8081/ownit/resources/img/product/${product.image_real_file1}',	
+					/* cafe24 ver. */	          	
+					/* 'http://itwillbs16.cafe24.com/resources/img/product/${product.image_real_file1}', */
+				link: {
+					/* 로컬 ver. */
+					mobileWebUrl: 'http://localhost:8081/ownit/product_detail?product_idx=${product.product_idx}',
+					 webUrl: 'http://localhost:8081/ownit/product_detail?product_idx=${product.product_idx}', 
+					/* cafe24 ver. */	          
+					/*
+					mobileWebUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}',
+					webUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}', 
+					*/
+				},
+			},
+			social: {
+				likeCount: ${wishCount},  //관심품목 담은횟수
+				commentCount: ${listCount},  //리뷰 개수
+			},
+			buttons: [
+				{
+					title: '웹으로 보기',  //첫 번째 버튼 
+					link: {
+						/* 로컬 ver. */
+						mobileWebUrl: 'http://localhost:8081/ownit/product_detail?product_idx=${product.product_idx}',  //버튼 클릭 시 이동 링크
+						webUrl: 'http://localhost:8081/ownit/product_detail?product_idx=${product.product_idx}',
+						/* cafe24 ver. */	          
+						/*
+						mobileWebUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}',  //버튼 클릭 시 이동 링크
+						webUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}',
+						*/  
+					},
+				},
+			],
+		})
+	}
+
+	// 장바구니 추가
+	function cartVTN(idx){
 		if(${empty sessionScope.sId}) {
 			alert("로그인 후 이용가능합니다");
 			return;
@@ -225,22 +237,23 @@
 					} else {
 						alert("이미 장바구니에 담긴 상품입니다.");
 					}
-				checkCart();
-				return;
+					checkCart();
+					return;
 				}
 			});
 		}
-  }
-  function emptySid(){
-		  location.href="member_login";
-  }
+	}
+	
+	function emptySid(){
+		location.href="member_login";
+	}
 </script>
-  <body>
+<body>
 
-    <!-- header -->
-	<jsp:include page="../inc/top.jsp"></jsp:include>
+ <!-- header -->
+<jsp:include page="../inc/top.jsp"></jsp:include>
 
-   <!-- product  상품 메인이미지 -->
+<!-- product  상품 메인이미지 -->
     <section class="hero pt-5" style="margin-top: 150px;">
       <div class="container">
         <div class="row gutter-2 gutter-md-4 justify-content-between">
@@ -686,5 +699,5 @@
 
     <script src="resources/js/vendor.min.js"></script>
     <script src="resources/js/app.js"></script>
-  </body>
+</body>
 </html>
