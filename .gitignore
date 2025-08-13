@@ -65,4 +65,7 @@ buildNumber.properties
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java,maven
+
+### Add
 OwnIt/src/main/webapp/META-INF/maven/com.teamone/ownit/pom.properties
+/OwnIt/target/classes
