@@ -47,6 +47,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private SendMail sendMail;
 
 	// 정채연
 	@GetMapping(value = "/about_ownit")
@@ -215,8 +218,7 @@ public class MemberController {
 		// cafe24 ver.
 //		String content = "<a href='http://itwillbs16.cafe24.com/MemberAuth?id=" + id +"&authCode=" + auth_code + "'><b>클릭하여 인증을 진행해주세요.</b></a>";
 		
-		// 인증 메일 발송을 위해 SendMail 클래스 인스턴스 생성 및 sendMail() 메소드 호출하여 메일 발송
-		SendMail sendMail = new SendMail();
+		// sendMail() 메소드 호출하여 메일 발송
 		boolean isSendSuccess = sendMail.sendMail(id, subject, content);
 		
 		// 인증 정보 등록 전 인증 정보 유무 확인 작업
@@ -362,8 +364,7 @@ public class MemberController {
 			// cafe24 ver.			
 //					+ "<a href='http://itwillbs16.cafe24.com/member_login'><b>로그인 페이지로 이동</b></a>";
 			
-			// 인증 메일 발송을 위해 SendMail 클래스 인스턴스 생성 및 sendMail() 메소드 호출하여 메일 발송
-			SendMail sendMail = new SendMail();
+			// sendMail() 메소드 호출하여 메일 발송
 			boolean isSendSuccess = sendMail.sendMail(member_id, subject, content);
 			
 			// 새 비밀번호 암호화하여 member 테이블에 저장

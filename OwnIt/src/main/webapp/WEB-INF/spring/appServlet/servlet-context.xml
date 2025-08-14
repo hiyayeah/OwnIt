@@ -27,6 +27,8 @@
 		<beans:property name="defaultEncoding" value="UTF-8" />
 	</beans:bean>
 	
+	<context:property-placeholder location="classpath:application.properties"/>
+	
 	<!-- 컨트롤러(@Controller) 를 비롯한 어노테이션을 통해 자동 주입될 클래스가 포함되는 패키지 지정 -->
 	<context:component-scan base-package="com.teamone.ownit" />
 <!-- 	<context:component-scan base-package="com.itwillbs.mvc_board.controller" /> -->
@@ -34,16 +36,17 @@
 
 	<!-- java mail 전송 관련 객체 설정 -->
 	<beans:bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
-	    <beans:property name="host" value="smtp.gmail.com" />
-	    <beans:property name="port" value="25" />
-	    <beans:property name="username" value="gmail_id@gmail.com" />
-	    <beans:property name="password" value="gmail_password" />
-	    <beans:property name="defaultEncoding" value="utf-8"/>
+  		<beans:property name="host" value="${mail.smtp.host}"/>
+  		<beans:property name="port" value="${mail.smtp.port}"/>
+  		<beans:property name="username" value="${mail.username}"/>
+  		<beans:property name="password" value="${mail.password}"/>
+  	    <beans:property name="defaultEncoding" value="utf-8"/>
 	    <beans:property name="javaMailProperties">
 		    <beans:props>
-		        <beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
-		        <beans:prop key="mail.transport.protocol">smtp</beans:prop>
-				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.auth">${mail.smtp.auth}</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">${mail.smtp.starttls.enable}</beans:prop>
+				<beans:prop key="mail.smtp.ssl.protocols">${mail.smtp.ssl.protocols}</beans:prop>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
 				<beans:prop key="mail.debug">true</beans:prop>
 		    </beans:props>
 	    </beans:property>
