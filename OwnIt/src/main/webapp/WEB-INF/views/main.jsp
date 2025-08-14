@@ -240,7 +240,7 @@ $(function() {
     </section>
       
     <!-- ******************************* 인기 리뷰 목록 ******************************* -->
-    <section class="pt-0" style="margin-bottom: 500px;">
+    <section class="pt-0" style="margin-bottom: 800px;">
       <div class="container">
         <div class="row">
           <img src="resources/img/stylePicks.png">
