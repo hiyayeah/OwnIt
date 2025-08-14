@@ -13,7 +13,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath() %>/resources/admin/images/favicon.png">
     <!-- Custom Stylesheet -->
     <link href="<%=request.getContextPath() %>/resources/admin/css/style.css" rel="stylesheet">
-
 </head>
 <script type="text/javascript">
 	
