@@ -21,28 +21,59 @@
 	
 	// "답글 쓰기" 클릭 시 대댓글 입력창 추가
 	function reply(idx, trIndex) {
-		$("#reply_add" + trIndex).remove();
-        
-        //입력받는 창 등록
-        var replyEditor = 
-           '<tr id="reply_add" class="reply_reply" style="border-bottom: 1px solid #dddddd;">'+
-           '   <td style="width: 20%; padding-bottom: 20px; padding-top: 20px;">'+
-           '   </td>'+
-           '   <td colspan="2" style="width: 760px; padding-bottom: 20px; padding-top: 20px;">'+
-           '     <form action="writeEvent_re_Reply" method="post" style="width: 760px;">'+
-           '	   <input type="hidden" name="member_idx" value="${sessionScope.sIdx }">'+
-           '	   <input type="hidden" name="notice_idx" value="${notice.notice_idx }">'+
-           '	   <input type="hidden" name="reply_re_ref" value="'+ idx +'">'+
-           '	   <input type="hidden" name="replyListNum" value="${pageInfo.replyListNum }">'+
-           '	   <input type="hidden" name="pageNum" value="${param.pageNum }">'+
-           '       <input type="text" class="form-control" id="reply_content" name="reply_content" style="width: 590px; float: left;" aria-describedby="emailHelp" placeholder="댓글을 남겨주세요.">'+
-           '       <button type="submit" name="add_re_Reply" style="width: 150px; margin-left: 20px; float: left;" class="btn btn-dark btn-rounded">답글 등록</button>'+
-           '	 </form>'+
-           '   </td>'+
-           '</tr>';
-             
-            $('#reply_area tr:eq(' + trIndex + ')').after(replyEditor);
+	    $("#reply_add" + trIndex).remove();
+	
+	    var replyEditor = 
+	       '<tr id="reply_add" class="reply_reply" style="border-bottom:1px solid #ddd;">'+
+	       ' <td style="width:20%; padding:20px 0;"></td>'+
+	       ' <td colspan="2" style="width:760px; padding:20px 0;">'+
+	       '   <form action="writeEvent_re_Reply" method="post" '+
+	       '         onsubmit="return loginCheck(() => true, true)" style="width:760px;">'+
+	       '     <input type="hidden" name="member_idx" value="${sessionScope.sIdx }">'+
+	       '     <input type="hidden" name="notice_idx" value="${notice.notice_idx }">'+
+	       '     <input type="hidden" name="reply_re_ref" value="'+ idx +'">'+
+	       '     <input type="hidden" name="replyListNum" value="${pageInfo.replyListNum }">'+
+	       '     <input type="hidden" name="pageNum" value="${param.pageNum }">'+
+	       '     <input type="text" class="form-control" id="reply_content" '+
+	       '            name="reply_content" style="width:590px; float:left;" '+
+	       '            placeholder="답글을 남겨주세요.">'+
+	       '     <button type="submit" style="width:150px; margin-left:20px; float:left;" '+
+	       '             class="btn btn-dark btn-rounded">답글 등록</button>'+
+	       '   </form>'+
+	       ' </td>'+
+	       '</tr>';
+	
+	    $('#reply_area tr:eq(' + trIndex + ')').after(replyEditor);
 	}
+	
+    // 세션 회원 idx (미로그인 시 "")
+    const sIdx = "${sessionScope.sIdx}"; 
+    /**
+     * 단일 로그인 & 내용 검증 함수
+     * @param {Function} action 실행할 콜백 (폼 submit, reply() 등)
+     * @param {boolean} checkContent true면 댓글/답글 내용 검사 수행
+     */
+    function loginCheck(action, checkContent = false) {
+        if (!sIdx || sIdx.trim() === "") {
+            alert("로그인 후 이용 가능합니다.");
+            return false; // onsubmit에서 false 리턴 시 제출 중지
+        }
+
+        if (checkContent) {
+            // checkContent가 true면 내용 검사
+            const contentInput = event?.target?.querySelector("[name='reply_content']") 
+                               || document.getElementById("reply_content");
+            if (!contentInput || contentInput.value.trim() === "") {
+                alert("내용을 입력해주세요.");
+                return false;
+            }
+        }
+
+        if (typeof action === "function") {
+            action();
+        }
+        return true;
+    }
 	
 	</script>
     <title>Notice List</title>
@@ -80,13 +111,13 @@
 					<c:if test="${notice.notice_category eq '[이벤트]' }">
 						<div class="form-group" style="width: 100%">
 						    <!-- 댓글 등록 -->
-						    <form action="writeEventReply" method="post">
+						    <form id="replyForm" action="writeEventReply" method="post" onsubmit="return loginCheck(() => true, true)">
 						    	<input type="hidden" name="member_idx" value="${sessionScope.sIdx }">
 						    	<input type="hidden" name="notice_idx" value="${notice.notice_idx }">
 						    	<input type="hidden" name="replyListNum" value="${pageInfo.replyListNum }">
 						    	<input type="hidden" name="pageNum" value="${param.pageNum }">
 							    <input type="text" class="form-control" id="reply_content" name="reply_content" style="width: 82%; float: left;" aria-describedby="emailHelp" placeholder="댓글을 남겨주세요.">
-							    <button type="submit" class="btn btn-dark btn-rounded" style="width: 150px; float: left; margin-left: 20px;">댓글 등록</button>
+							    <button type="button" class="btn btn-dark btn-rounded" style="width: 150px; float: left; margin-left: 20px;" onclick="loginCheck(() => document.getElementById('replyForm').submit(), true)">댓글 등록</button>
 							</form>
 						</div>
 						
@@ -148,7 +179,7 @@
 												
 												<!-- 다른 사람 댓글일 때 답글 작성 버튼 표시 -->
 												<c:if test="${reply.member_idx ne sessionScope.sIdx && reply.reply_re_lev != 1 }">
-													<button type="button" id="reply_add" name="re_reply" onclick="reply('${reply.reply_re_ref }', '${num.index }'); this.onclick='';" style="width: 150px; margin-left: 20px;" class="btn btn-dark btn-rounded">답글 작성</button>
+													<button type="button" id="reply_add_${num.index}" name="re_reply" onclick="loginCheck(() => reply('${reply.reply_re_ref}', '${num.index}'))" style="width: 150px; margin-left: 20px;" class="btn btn-dark btn-rounded">답글 작성</button>
 												</c:if>
 											  </td>
 											</tr>
