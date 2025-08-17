@@ -6,7 +6,7 @@
         SELECT * , 
           CASE WHEN a.num IS NULL THEN 'like_none.jpg' 
                                   ELSE 'like2.jpg' END AS heartImg
-          FROM reviewList r
+          FROM reviewlist r
           LEFT JOIN (SELECT review_idx, '1' as num
                         FROM style_like_list s
                         WHERE member_idx = #{member_idx}) a
@@ -25,7 +25,7 @@
     
     <select id="selectReview" resultType="com.teamone.ownit.vo.ReviewListVO">
         SELECT *
-            FROM reviewList
+            FROM reviewlist
             WHERE
               review_idx = #{review_idx}
     </select>
@@ -131,7 +131,7 @@
 		    SELECT * , 
           CASE WHEN a.num IS NULL THEN 'like_none.jpg' 
                                   ELSE 'like2.jpg' END AS heartImg
-          FROM reviewList r
+          FROM reviewlist r
           LEFT JOIN (SELECT review_idx, '1' as num
                         FROM style_like_list s
                         WHERE member_idx = #{member_idx2}) a
@@ -142,7 +142,7 @@
     
     <select id="selectReviewCount" resultType="integer">
         SELECT count(*) 
-          FROM reviewList
+          FROM reviewlist
           WHERE 
             member_idx = #{member_idx}
     </select>

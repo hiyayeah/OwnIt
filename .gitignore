@@ -71,3 +71,4 @@ OwnIt/src/main/webapp/META-INF/maven/com.teamone/ownit/pom.properties
 /OwnIt/target/classes
 OwnIt/src/main/webapp/META-INF/MANIFEST.MF
 OwnIt/src/main/resources/application.properties
+/OwnIt/target/classes/com/teamone/ownit/mapper
