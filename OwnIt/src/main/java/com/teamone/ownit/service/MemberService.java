@@ -153,7 +153,7 @@ public class MemberService {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
             
-			sb.append("&client_id=ee04e57ce1c4f35a3eafd3052e7156e0"); //본인이 발급받은 key
+			sb.append("&client_id=af07e31db8458a61a43635f54eafc601"); //본인이 발급받은 key
 			// 로컬 ver.
 			sb.append("&redirect_uri=http://localhost:8081/ownit/kakaoLogin"); // 본인이 설정한 주소
 			// cafe24 ver.
