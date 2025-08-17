@@ -180,18 +180,16 @@
 				description: '${product.product_name}',
 				imageUrl:
 					/* 로컬 ver. */	          	
-					'http://localhost:8081/ownit/resources/img/product/${product.image_real_file1}',	
+					/* 'http://localhost:8081/ownit/resources/img/product/${product.image_real_file1}', */	
 					/* cafe24 ver. */	          	
-					/* 'http://itwillbs16.cafe24.com/resources/img/product/${product.image_real_file1}', */
+					'http://ownitt.cafe24.com/resources/img/product/${product.image_real_file1}',
 				link: {
 					/* 로컬 ver. */
-					mobileWebUrl: 'http://localhost:8081/ownit/product_detail?product_idx=${product.product_idx}',
-					 webUrl: 'http://localhost:8081/ownit/product_detail?product_idx=${product.product_idx}', 
+					/* mobileWebUrl: 'http://localhost:8081/ownit/product_detail?product_idx=${product.product_idx}',
+					 webUrl: 'http://localhost:8081/ownit/product_detail?product_idx=${product.product_idx}', */ 
 					/* cafe24 ver. */	          
-					/*
-					mobileWebUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}',
-					webUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}', 
-					*/
+					mobileWebUrl: 'http://ownitt.cafe24.com/product_detail?product_idx=${product.product_idx}',
+					webUrl: 'http://ownitt.cafe24.com/product_detail?product_idx=${product.product_idx}', 
 				},
 			},
 			social: {
@@ -203,13 +201,13 @@
 					title: '웹으로 보기',  //첫 번째 버튼 
 					link: {
 						/* 로컬 ver. */
+						/* 						
 						mobileWebUrl: 'http://localhost:8081/ownit/product_detail?product_idx=${product.product_idx}',  //버튼 클릭 시 이동 링크
 						webUrl: 'http://localhost:8081/ownit/product_detail?product_idx=${product.product_idx}',
+						 */				
 						/* cafe24 ver. */	          
-						/*
-						mobileWebUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}',  //버튼 클릭 시 이동 링크
-						webUrl: 'http://itwillbs16.cafe24.com/product_detail?product_idx=${product.product_idx}',
-						*/  
+						mobileWebUrl: 'http://ownitt.cafe24.com/product_detail?product_idx=${product.product_idx}',  //버튼 클릭 시 이동 링크
+						webUrl: 'http://ownitt.cafe24.com/product_detail?product_idx=${product.product_idx}',
 					},
 				},
 			],

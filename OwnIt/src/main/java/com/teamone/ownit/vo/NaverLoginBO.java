@@ -23,9 +23,9 @@ public class NaverLoginBO {
 		private final static String CLIENT_ID = "4kJ5AbWD1cGnmbOgHWSk";
 	    private final static String CLIENT_SECRET = "uLohQAJFuY";
 		// 로컬 ver.
-	    private final static String REDIRECT_URI = "http://localhost:8081/ownit/callback";
+//	    private final static String REDIRECT_URI = "http://localhost:8081/ownit/callback";
 		// cafe24 ver.
-//	    private final static String REDIRECT_URI = "http://itwillbs16.cafe24.com/callback";
+	    private final static String REDIRECT_URI = "http://ownitt.cafe24.com/callback";
 	    private final static String SESSION_STATE = "oauth_state";
 	    /* 프로필 조회 API URL */
 	    private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";

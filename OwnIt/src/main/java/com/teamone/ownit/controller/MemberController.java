@@ -214,9 +214,9 @@ public class MemberController {
 		String subject = "[OwnIt] OwnIt 가입 인증 메일";
 		
 		// 로컬 ver.
-		String content = "<a href='http://localhost:8081/ownit/MemberAuth?id=" + id +"&authCode=" + auth_code + "'><b>클릭하여 인증을 진행해주세요.</b></a>";
+//		String content = "<a href='http://localhost:8081/ownit/MemberAuth?id=" + id +"&authCode=" + auth_code + "'><b>클릭하여 인증을 진행해주세요.</b></a>";
 		// cafe24 ver.
-//		String content = "<a href='http://itwillbs16.cafe24.com/MemberAuth?id=" + id +"&authCode=" + auth_code + "'><b>클릭하여 인증을 진행해주세요.</b></a>";
+		String content = "<a href='http://ownitt.cafe24.com/MemberAuth?id=" + id +"&authCode=" + auth_code + "'><b>클릭하여 인증을 진행해주세요.</b></a>";
 		
 		// sendMail() 메소드 호출하여 메일 발송
 		boolean isSendSuccess = sendMail.sendMail(id, subject, content);
@@ -360,9 +360,9 @@ public class MemberController {
 			String subject = "[OwnIt] OwnIt 비밀번호 찾기 메일";
 			String content = "새로운 비밀번호는 " + newPass + " 입니다.<br>"
 			// 로컬 ver.
-					+ "<a href='http://localhost:8081/ownit/member_login'><b>로그인 페이지로 이동</b></a>";
+//					+ "<a href='http://localhost:8081/ownit/member_login'><b>로그인 페이지로 이동</b></a>";
 			// cafe24 ver.			
-//					+ "<a href='http://itwillbs16.cafe24.com/member_login'><b>로그인 페이지로 이동</b></a>";
+					+ "<a href='http://ownitt.cafe24.com/member_login'><b>로그인 페이지로 이동</b></a>";
 			
 			// sendMail() 메소드 호출하여 메일 발송
 			boolean isSendSuccess = sendMail.sendMail(member_id, subject, content);

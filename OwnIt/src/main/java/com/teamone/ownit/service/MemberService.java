@@ -155,9 +155,9 @@ public class MemberService {
             
 			sb.append("&client_id=af07e31db8458a61a43635f54eafc601"); //본인이 발급받은 key
 			// 로컬 ver.
-			sb.append("&redirect_uri=http://localhost:8081/ownit/kakaoLogin"); // 본인이 설정한 주소
+//			sb.append("&redirect_uri=http://localhost:8081/ownit/kakaoLogin"); // 본인이 설정한 주소
 			// cafe24 ver.
-//			sb.append("&redirect_uri=http://itwillbs16.cafe24.com/kakaoLogin"); // 본인이 설정한 주소
+			sb.append("&redirect_uri=http://ownitt.cafe24.com/kakaoLogin"); // 본인이 설정한 주소
             
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
